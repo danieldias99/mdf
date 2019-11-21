@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MDF.Migrations
 {
     [DbContext(typeof(MDFContext))]
-    [Migration("20191116122111_migration")]
+    [Migration("20191119084227_migration")]
     partial class migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,9 +48,9 @@ namespace MDF.Migrations
 
             modelBuilder.Entity("MDF.Models.LinhaProducao", b =>
                 {
-                    b.Property<long>("Id");
+                    b.Property<long>("id");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("LinhasProducao");
                 });
@@ -70,20 +70,11 @@ namespace MDF.Migrations
 
             modelBuilder.Entity("MDF.Models.Operacao", b =>
                 {
-                    b.Property<long>("Id");
+                    b.Property<long>("id");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("Operacoes");
-                });
-
-            modelBuilder.Entity("MDF.Models.Produto", b =>
-                {
-                    b.Property<long>("Id");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Produtos");
                 });
 
             modelBuilder.Entity("MDF.Models.TipoMaquina", b =>
@@ -165,7 +156,7 @@ namespace MDF.Migrations
                 {
                     b.OwnsOne("MDF.Models.ValueObjects.DuracaoOperacao", "duracaoOperacao", b1 =>
                         {
-                            b1.Property<long>("OperacaoId");
+                            b1.Property<long>("Operacaoid");
 
                             b1.Property<string>("hora");
 
@@ -173,50 +164,29 @@ namespace MDF.Migrations
 
                             b1.Property<string>("seg");
 
-                            b1.HasKey("OperacaoId");
+                            b1.HasKey("Operacaoid");
 
                             b1.ToTable("Operacoes");
 
                             b1.HasOne("MDF.Models.Operacao")
                                 .WithOne("duracaoOperacao")
-                                .HasForeignKey("MDF.Models.ValueObjects.DuracaoOperacao", "OperacaoId")
+                                .HasForeignKey("MDF.Models.ValueObjects.DuracaoOperacao", "Operacaoid")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
 
                     b.OwnsOne("MDF.Models.ValueObjects.Descricao", "descricaoOperacao", b1 =>
                         {
-                            b1.Property<long>("OperacaoId");
+                            b1.Property<long>("Operacaoid");
 
                             b1.Property<string>("Id");
 
-                            b1.HasKey("OperacaoId");
+                            b1.HasKey("Operacaoid");
 
                             b1.ToTable("Operacoes");
 
                             b1.HasOne("MDF.Models.Operacao")
                                 .WithOne("descricaoOperacao")
-                                .HasForeignKey("MDF.Models.ValueObjects.Descricao", "OperacaoId")
-                                .OnDelete(DeleteBehavior.Cascade);
-                        });
-                });
-
-            modelBuilder.Entity("MDF.Models.Produto", b =>
-                {
-                    b.OwnsOne("MDF.Models.ValueObjects.InfoProduto", "informacaoProduto", b1 =>
-                        {
-                            b1.Property<long>("ProdutoId");
-
-                            b1.Property<string>("descricaoProduto");
-
-                            b1.Property<string>("nomeProduto");
-
-                            b1.HasKey("ProdutoId");
-
-                            b1.ToTable("Produtos");
-
-                            b1.HasOne("MDF.Models.Produto")
-                                .WithOne("informacaoProduto")
-                                .HasForeignKey("MDF.Models.ValueObjects.InfoProduto", "ProdutoId")
+                                .HasForeignKey("MDF.Models.ValueObjects.Descricao", "Operacaoid")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
                 });

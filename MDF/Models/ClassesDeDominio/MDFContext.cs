@@ -19,8 +19,8 @@ namespace MDF.Models.ClassesDeDominio
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Operacao
-            modelBuilder.Entity<Operacao>().HasKey(j => j.Id);
-            modelBuilder.Entity<Operacao>().Property(j => j.Id).ValueGeneratedNever();
+            modelBuilder.Entity<Operacao>().HasKey(j => j.id);
+            modelBuilder.Entity<Operacao>().Property(j => j.id).ValueGeneratedNever();
 
             modelBuilder.Entity<Operacao>().OwnsOne(j => j.descricaoOperacao);
             modelBuilder.Entity<Operacao>().OwnsOne(j => j.duracaoOperacao);

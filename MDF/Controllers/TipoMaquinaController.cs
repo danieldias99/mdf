@@ -80,14 +80,14 @@ namespace MDF.Controllers
 
             foreach (OperacaoDTO TipoMaquinaDTO in update_TipoMaquina.operacoes)
             {
-                var TipoMaquina = await repositorio_operacao.getOperacaoById(TipoMaquinaDTO.Id);
+                var operacao = await repositorio_operacao.getOperacaoById(TipoMaquinaDTO.id);
 
-                if (TipoMaquina == null)
+                if (operacao == null)
                 {
-                    return NotFound("A operação " + TipoMaquinaDTO.Id + " não existe!");
+                    return NotFound("A operação " + operacao.Value.id + " não existe!");
                 }
 
-                new_list_operacoes.Add(new TipoMaquinaOperacao(tipoMaquina.Value.id_tipoMaquina, TipoMaquina.Value.Id));
+                new_list_operacoes.Add(new TipoMaquinaOperacao(tipoMaquina.Value.id_tipoMaquina, operacao.Value.id));
             }
 
             if (!tipoMaquina.Value.update_operacoes(new_list_operacoes))

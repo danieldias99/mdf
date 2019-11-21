@@ -42,7 +42,7 @@ namespace MDF.Models
         {
             foreach (OperacaoDTO operacao in operacaoes)
             {
-                addOperacao(new TipoMaquinaOperacao(this.id_tipoMaquina, operacao.Id));
+                addOperacao(new TipoMaquinaOperacao(this.id_tipoMaquina, operacao.id));
             }
         }
 

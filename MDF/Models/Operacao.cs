@@ -8,7 +8,7 @@ namespace MDF.Models
 {
     public class Operacao : Entity, IAggregateRoot
     {
-        public long Id { get; set; }
+        public long id { get; set; }
         public Descricao descricaoOperacao { get; set; }
         public DuracaoOperacao duracaoOperacao { get; set; }
         public ICollection<TipoMaquinaOperacao> tiposMaquinas { get; set; }
@@ -17,19 +17,19 @@ namespace MDF.Models
 
         public Operacao(long id, string descricao, string hora, string min, string seg)
         {
-            this.Id = id;
+            this.id = id;
             this.descricaoOperacao = new Descricao(descricao);
             this.duracaoOperacao = new DuracaoOperacao(hora, min, seg);
         }
 
-        public Operacao(long Id)
+        public Operacao(long id)
         {
-            this.Id = Id;
+            this.id = id;
         }
 
         public OperacaoDTO toDTO()
         {
-            return new OperacaoDTO(Id, descricaoOperacao.Id, duracaoOperacao.toString(), tiposMaquinas);
+            return new OperacaoDTO(id, descricaoOperacao.Id, duracaoOperacao.toString(), tiposMaquinas);
         }
     }
 }

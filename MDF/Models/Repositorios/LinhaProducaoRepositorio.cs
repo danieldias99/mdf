@@ -45,7 +45,6 @@ namespace MDF.Models.Repositorios
                 if (linha.id_linhaProducao == linhaProducao.id)
                 {
                     linha.maquina = _context.Maquinas.Find(linha.id_maquina);
-                    linhaProducao.addMaquina(linha);
                 }
             }
         }

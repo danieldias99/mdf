@@ -53,23 +53,26 @@ namespace MDF.Controllers
 
         // POST: api/Operacao
         [HttpPost()]
-        public async Task<ActionResult<Operacao>> PostOperacao(OperacaoDTO newOperacao)
+        public async Task<ActionResult<Operacao>> PostOperacao(OperacaoDTO update_operacao)
         {
-            repositorio.addOperacao(new Operacao(newOperacao.Id, newOperacao.descricaoOperacao, newOperacao.duracaoOperacao.Split(":")[0], newOperacao.duracaoOperacao.Split(":")[1], newOperacao.duracaoOperacao.Split(":")[2]));
-            return CreatedAtAction(nameof(GetOperacao), new { id = newOperacao.Id }, newOperacao);
+            repositorio.addOperacao(new Operacao(update_operacao.id, update_operacao.descricaoOperacao, update_operacao.duracaoOperacao.Split(":")[0], update_operacao.duracaoOperacao.Split(":")[1], update_operacao.duracaoOperacao.Split(":")[2]));
+            return CreatedAtAction(nameof(GetOperacao), new { id = update_operacao.id }, update_operacao);
         }
 
         // PUT: api/Todo
         [HttpPut()]
         public async Task<IActionResult> PutOperacao(OperacaoDTO update_operacao)
         {
-            var operacaoDTO = await repositorio.getOperacaoById(update_operacao.Id);
+            var operacaoDTO = await repositorio.getOperacaoById(update_operacao.id);
 
             if (operacaoDTO == null)
             {
                 return NotFound("Operação não existe!");
             }
 
+            operacaoDTO.Value.descricaoOperacao = new Models.ValueObjects.Descricao(update_operacao.descricaoOperacao);
+            operacaoDTO.Value.duracaoOperacao = new Models.ValueObjects.DuracaoOperacao(update_operacao.duracaoOperacao.Split(":")[0], update_operacao.duracaoOperacao.Split(":")[1], update_operacao.duracaoOperacao.Split(":")[2]);
+            
             repositorio.updateOperacao(operacaoDTO.Value);
             return NoContent();
         }
@@ -80,7 +83,7 @@ namespace MDF.Controllers
         {
             var operacao = await GetOperacao(id);
 
-            if (operacao == null)
+            if (operacao.Value == null)
             {
                 return NotFound("Operação não existe!");
             }

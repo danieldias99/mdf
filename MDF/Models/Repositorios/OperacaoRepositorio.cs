@@ -35,12 +35,9 @@ namespace MDF.Models.Repositorios
             _context.SaveChanges();
         }
 
-        public async void updateOperacao(Operacao update_operacao)
+        public void updateOperacao(Operacao update_operacao)
         {
-            var current_operacao = await _context.Operacoes.FindAsync(update_operacao.Id);
-            current_operacao.descricaoOperacao = update_operacao.descricaoOperacao;
-            current_operacao.duracaoOperacao = update_operacao.duracaoOperacao;
-            _context.Entry(current_operacao).State = EntityState.Modified;
+            _context.Entry(update_operacao).State = EntityState.Modified;
             _context.SaveChanges();
         }
 

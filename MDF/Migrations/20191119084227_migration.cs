@@ -10,18 +10,18 @@ namespace MDF.Migrations
                 name: "LinhasProducao",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
+                    id = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LinhasProducao", x => x.Id);
+                    table.PrimaryKey("PK_LinhasProducao", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Operacoes",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false),
+                    id = table.Column<long>(nullable: false),
                     descricaoOperacao_Id = table.Column<string>(nullable: true),
                     duracaoOperacao_hora = table.Column<string>(nullable: true),
                     duracaoOperacao_min = table.Column<string>(nullable: true),
@@ -29,20 +29,7 @@ namespace MDF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Operacoes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Produtos",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false),
-                    informacaoProduto_nomeProduto = table.Column<string>(nullable: true),
-                    informacaoProduto_descricaoProduto = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Produtos", x => x.Id);
+                    table.PrimaryKey("PK_Operacoes", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -91,7 +78,7 @@ namespace MDF.Migrations
                         name: "FK_TipoMaquinaOperacao_Operacoes_id_operacao",
                         column: x => x.id_operacao,
                         principalTable: "Operacoes",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TipoMaquinaOperacao_TiposMaquina_id_tipoMaquina",
@@ -115,7 +102,7 @@ namespace MDF.Migrations
                         name: "FK_LinhaProducaoMaquinas_LinhasProducao_id_linhaProducao",
                         column: x => x.id_linhaProducao,
                         principalTable: "LinhasProducao",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_LinhaProducaoMaquinas_Maquinas_id_maquina",
@@ -145,9 +132,6 @@ namespace MDF.Migrations
         {
             migrationBuilder.DropTable(
                 name: "LinhaProducaoMaquinas");
-
-            migrationBuilder.DropTable(
-                name: "Produtos");
 
             migrationBuilder.DropTable(
                 name: "TipoMaquinaOperacao");

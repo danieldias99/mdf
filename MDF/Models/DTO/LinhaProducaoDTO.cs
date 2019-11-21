@@ -12,22 +12,20 @@ namespace MDF.Models.DTO
 
         public LinhaProducaoDTO() { }
 
-        public LinhaProducaoDTO(long id, List<LinhaProducaoMaquinas> maquinas)
+        public LinhaProducaoDTO(long id, List<LinhaProducaoMaquinas> lista)
         {
             this.id = id;
-            setMaquinas(maquinas);
+            this.maquinas = new List<MaquinaDTO>();
+            setMaquinas(lista);
         }
 
         public void setMaquinas(List<LinhaProducaoMaquinas> linhasProducaoMaquinas)
         {
-            if (maquinas != null)
+            foreach (LinhaProducaoMaquinas linhaProducaoMaquinas in linhasProducaoMaquinas)
             {
-                maquinas = new List<MaquinaDTO>();
-                foreach (LinhaProducaoMaquinas linhaProducaoMaquinas in linhasProducaoMaquinas)
-                {
-                    maquinas.Add(linhaProducaoMaquinas.maquina.toDTO());
-                }
+                maquinas.Add(linhaProducaoMaquinas.maquina.toDTO());
             }
+
         }
     }
 }
