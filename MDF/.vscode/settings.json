@@ -1,0 +1,5 @@
+{
+    "appService.preDeployTask": "publish-release",
+    "appService.deploySubpath": "",
+    "appService.defaultWebAppToDeploy": "/subscriptions/beb93af0-a191-4a4b-b843-1771d3220fc3/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/MDF-ARQSI"
+}
