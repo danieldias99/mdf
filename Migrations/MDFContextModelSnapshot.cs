@@ -117,6 +117,38 @@ namespace MDF.Migrations
                         .HasForeignKey("id_tipoMaquina")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.OwnsOne("MDF.Models.ValueObjects.MarcaMaquina", "marcaMaquina", b1 =>
+                        {
+                            b1.Property<long>("MaquinaId");
+
+                            b1.Property<string>("marca");
+
+                            b1.HasKey("MaquinaId");
+
+                            b1.ToTable("Maquinas");
+
+                            b1.HasOne("MDF.Models.Maquina")
+                                .WithOne("marcaMaquina")
+                                .HasForeignKey("MDF.Models.ValueObjects.MarcaMaquina", "MaquinaId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
+                    b.OwnsOne("MDF.Models.ValueObjects.ModeloMaquina", "modeloMaquina", b1 =>
+                        {
+                            b1.Property<long>("MaquinaId");
+
+                            b1.Property<string>("modelo");
+
+                            b1.HasKey("MaquinaId");
+
+                            b1.ToTable("Maquinas");
+
+                            b1.HasOne("MDF.Models.Maquina")
+                                .WithOne("modeloMaquina")
+                                .HasForeignKey("MDF.Models.ValueObjects.ModeloMaquina", "MaquinaId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
                     b.OwnsOne("MDF.Models.ValueObjects.NomeMaquina", "nomeMaquina", b1 =>
                         {
                             b1.Property<long>("MaquinaId");
@@ -137,7 +169,9 @@ namespace MDF.Migrations
                         {
                             b1.Property<long>("MaquinaId");
 
-                            b1.Property<int>("posicaoNaLinhaProducao");
+                            b1.Property<int>("x");
+
+                            b1.Property<int>("y");
 
                             b1.HasKey("MaquinaId");
 

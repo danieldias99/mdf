@@ -50,7 +50,10 @@ namespace MDF.Migrations
                 {
                     Id = table.Column<long>(nullable: false),
                     nomeMaquina_nomeMaquina = table.Column<string>(nullable: true),
-                    posicaoLinhaProducao_posicaoNaLinhaProducao = table.Column<int>(nullable: false),
+                    marcaMaquina_marca = table.Column<string>(nullable: true),
+                    modeloMaquina_modelo = table.Column<string>(nullable: true),
+                    posicaoLinhaProducao_x = table.Column<int>(nullable: false),
+                    posicaoLinhaProducao_y = table.Column<int>(nullable: false),
                     id_tipoMaquina = table.Column<long>(nullable: false)
                 },
                 constraints: table =>

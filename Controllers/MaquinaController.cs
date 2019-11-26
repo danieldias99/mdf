@@ -39,7 +39,7 @@ namespace MDF.Controllers
             return Maquina.Value.toDTO();
         }
 
-        
+
         // GET: api/TipoMaquina/
         [HttpGet]
         public async Task<ActionResult<List<MaquinaDTO>>> GetAllTipoMaquina()
@@ -62,7 +62,7 @@ namespace MDF.Controllers
         public async Task<ActionResult<Maquina>> postMaquina(MaquinaDTO newMaquina)
         {
             var tipo_maquina = await repositorioTipoMaquina.getTipoMaquinaById(newMaquina.id_tipoMaquina);
-            repositorioMaquina.addMaquina(new Maquina(newMaquina.Id, newMaquina.nomeMaquina, newMaquina.posicaoLinhaProducao, newMaquina.id_tipoMaquina, tipo_maquina.Value));
+            repositorioMaquina.addMaquina(new Maquina(newMaquina.Id, newMaquina.nomeMaquina, newMaquina.marcaMaquina, newMaquina.modeloMaquina, newMaquina.x, newMaquina.y, newMaquina.id_tipoMaquina, tipo_maquina.Value));
             return CreatedAtAction(nameof(getMaquina), new Maquina { nomeMaquina = new NomeMaquina(newMaquina.nomeMaquina) }, newMaquina);
         }
 
@@ -77,7 +77,9 @@ namespace MDF.Controllers
             }
 
             maquina.nomeMaquina = new NomeMaquina(update_maquina.nomeMaquina);
-            maquina.posicaoLinhaProducao = new PosicaoNaLinhaProducao(update_maquina.posicaoLinhaProducao);
+            maquina.posicaoLinhaProducao = new PosicaoNaLinhaProducao(update_maquina.x, update_maquina.y);
+            maquina.marcaMaquina = new MarcaMaquina(update_maquina.marcaMaquina);
+            maquina.modeloMaquina = new ModeloMaquina(update_maquina.modeloMaquina);
 
             var tipoMaquina = (await repositorioTipoMaquina.getTipoMaquinaById(update_maquina.id_tipoMaquina)).Value;
             if (tipoMaquina == null)

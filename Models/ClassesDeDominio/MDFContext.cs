@@ -49,6 +49,8 @@ namespace MDF.Models.ClassesDeDominio
             modelBuilder.Entity<Maquina>().Property(b => b.Id).ValueGeneratedNever();
 
             modelBuilder.Entity<Maquina>().OwnsOne(b => b.nomeMaquina);
+            modelBuilder.Entity<Maquina>().OwnsOne(b => b.modeloMaquina);
+            modelBuilder.Entity<Maquina>().OwnsOne(b => b.marcaMaquina);
             modelBuilder.Entity<Maquina>()
             .HasOne<TipoMaquina>(s => s.tipoMaquina)
             .WithMany(g => g.maquinas)

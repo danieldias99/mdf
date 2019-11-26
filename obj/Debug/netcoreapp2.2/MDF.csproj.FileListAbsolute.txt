@@ -26,3 +26,17 @@ c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\MDF\
 c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\MDF\obj\Debug\netcoreapp2.2\MDF.RazorTargetAssemblyInfo.cache
 c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\MDF\obj\Debug\netcoreapp2.2\MDF.dll
 c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\MDF\obj\Debug\netcoreapp2.2\MDF.pdb
+C:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\bin\Debug\netcoreapp2.2\MDF.deps.json
+C:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\bin\Debug\netcoreapp2.2\MDF.runtimeconfig.json
+C:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\bin\Debug\netcoreapp2.2\MDF.runtimeconfig.dev.json
+c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\bin\Debug\netcoreapp2.2\MDF.dll
+c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\bin\Debug\netcoreapp2.2\MDF.pdb
+c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\obj\Debug\netcoreapp2.2\MDF.csprojAssemblyReference.cache
+c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\obj\Debug\netcoreapp2.2\MDF.csproj.CoreCompileInputs.cache
+c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\obj\Debug\netcoreapp2.2\MDF.RazorAssemblyInfo.cache
+c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\obj\Debug\netcoreapp2.2\MDF.RazorAssemblyInfo.cs
+c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\obj\Debug\netcoreapp2.2\MDF.AssemblyInfoInputs.cache
+c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\obj\Debug\netcoreapp2.2\MDF.AssemblyInfo.cs
+c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\obj\Debug\netcoreapp2.2\MDF.RazorTargetAssemblyInfo.cache
+c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\obj\Debug\netcoreapp2.2\MDF.dll
+c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\obj\Debug\netcoreapp2.2\MDF.pdb

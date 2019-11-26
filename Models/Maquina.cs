@@ -11,6 +11,8 @@ namespace MDF.Models
     {
         public long Id { get; set; }
         public NomeMaquina nomeMaquina { get; set; }
+        public MarcaMaquina marcaMaquina { get; set; }
+        public ModeloMaquina modeloMaquina { get; set; }
         public PosicaoNaLinhaProducao posicaoLinhaProducao { get; set; }
         public long id_tipoMaquina { get; set; }
         public TipoMaquina tipoMaquina { get; set; }
@@ -25,13 +27,15 @@ namespace MDF.Models
             this.posicaoLinhaProducao = posicaoLinhaProducao;
         }
 
-        public Maquina(long id_maquina, string nomeMaquina, int posicaoLinhaProducao, long id_tipoMaquina, TipoMaquina tipoMaquina)
+        public Maquina(long id_maquina, string nomeMaquina, string marca, string modelo, int x, int y, long id_tipoMaquina, TipoMaquina tipoMaquina)
         {
             this.Id = id_maquina;
             this.nomeMaquina = new NomeMaquina(nomeMaquina);
+            this.marcaMaquina = new MarcaMaquina(marca);
+            this.modeloMaquina = new ModeloMaquina(modelo);
             this.id_tipoMaquina = id_tipoMaquina;
             this.tipoMaquina = tipoMaquina;
-            this.posicaoLinhaProducao = new PosicaoNaLinhaProducao(posicaoLinhaProducao);
+            this.posicaoLinhaProducao = new PosicaoNaLinhaProducao(x, y);
         }
 
         public void addLinha(LinhaProducaoMaquinas linha)
@@ -53,7 +57,7 @@ namespace MDF.Models
 
         public MaquinaDTO toDTO()
         {
-            return new MaquinaDTO(Id, nomeMaquina, posicaoLinhaProducao, id_tipoMaquina, linhasProducao);
+            return new MaquinaDTO(Id, nomeMaquina, marcaMaquina, modeloMaquina, posicaoLinhaProducao, id_tipoMaquina, linhasProducao);
         }
     }
 }

@@ -4,12 +4,14 @@ namespace MDF.Models.ValueObjects
     public class PosicaoNaLinhaProducao
     {
 
-        public int posicaoNaLinhaProducao { get; set; }
+        public int x { get; set; }
+        public int y { get; set; }
 
-        public PosicaoNaLinhaProducao(){}
-        public PosicaoNaLinhaProducao(int value)
+        public PosicaoNaLinhaProducao() { }
+        public PosicaoNaLinhaProducao(int x, int y)
         {
-            this.posicaoNaLinhaProducao = value;
+            this.x = x;
+            this.y = y;
         }
     }
 }
