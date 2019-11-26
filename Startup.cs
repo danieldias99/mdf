@@ -27,8 +27,8 @@ namespace MDF
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MDFContext>(opt => opt.UseSqlServer("Server=localhost\\LAPR5_3DD_019;Database=ME;Trusted_Connection=True;"));
-            //services.AddDbContext<MDFContext>(opt => opt.UseSqlServer("Server=tcp:bd-lapr5.database.windows.net,1433;Initial Catalog=lapr5;Persist Security Info=False;User ID=administrador;Password=lapr5-19;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
+            //services.AddDbContext<MDFContext>(opt => opt.UseSqlServer("Server=localhost\\LAPR5_3DD_019;Database=ME;Trusted_Connection=True;"));
+            services.AddDbContext<MDFContext>(opt => opt.UseSqlServer("Server=tcp:bd-lapr5.database.windows.net,1433;Initial Catalog=lapr5;Persist Security Info=False;User ID=administrador;Password=lapr5-19;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
 
             //services.AddDbContext<LAPR5DBContext>(opt => opt.UseInMemoryDatabase("todoList"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
