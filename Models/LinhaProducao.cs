@@ -1,14 +1,18 @@
 using MDF.Models.Shared;
-using MDF.Associations;
 using System.Collections.Generic;
 using MDF.Models.DTO;
+using MDF.Models.ValueObjects;
 
 namespace MDF.Models
 {
     public class LinhaProducao : Entity, IAggregateRoot
     {
         public long id { get; set; }
-        public List<LinhaProducaoMaquinas> maquinas { get; set; }
+        public Descricao descricao { get; set; }
+        public PosicaoAbsoluta posicaoAbsolutaLinhaProducao { get; set; }
+        public Orientacao orientacaoLinhaProducao { get; set; }
+        public Dimensao dimensaoLinhaProducao { get; set; }
+        public List<Maquina> maquinas { get; set; }
 
         public LinhaProducao() { }
         public LinhaProducao(long id)
@@ -16,48 +20,45 @@ namespace MDF.Models
             this.id = id;
         }
 
-        public LinhaProducao(long id, List<LinhaProducaoMaquinas> maquinas)
+        public LinhaProducao(long id, List<Maquina> maquinas)
         {
             this.id = id;
             this.maquinas = maquinas;
         }
 
-        public LinhaProducao(long id, List<MaquinaDTO> maquinas)
+        public LinhaProducao(long id, string descricao, int x, int y, string orientacao, int comprimento, int largura)
         {
             this.id = id;
-            this.maquinas = new List<LinhaProducaoMaquinas>();
-            setMaquinas(maquinas);
+            this.descricao = new Descricao(descricao);
+            this.posicaoAbsolutaLinhaProducao = new PosicaoAbsoluta(x, y);
+            this.orientacaoLinhaProducao = new Orientacao(orientacao);
+            this.dimensaoLinhaProducao = new Dimensao(comprimento, largura);
+            this.maquinas = new List<Maquina>();
         }
 
-        public void setMaquinas(List<MaquinaDTO> maquinasDTO)
+        public void addMaquina(Maquina maquina)
         {
-
-            foreach (MaquinaDTO maquina in maquinasDTO)
-            {
-                maquinas.Add(new LinhaProducaoMaquinas(this.id, maquina.Id));
-            }
-
+            maquinas.Add(maquina);
         }
 
-        public bool update_linhaProducao(List<LinhaProducaoMaquinas> list)
+        public bool update_linhaProducao(List<Maquina> maquinas)
         {
-            if (list == null)
+            if (maquinas == null)
             {
                 return false;
             }
-
-            this.maquinas = list;
+            this.maquinas = maquinas;
             return true;
         }
 
-        public void addMaquina(LinhaProducaoMaquinas linha)
+        public bool isInsideFabrica()
         {
-            maquinas.Add(linha);
+            return posicaoAbsolutaLinhaProducao.x + this.dimensaoLinhaProducao.comprimento/2 < Fabrica.dimensaoFabrica.comprimento && posicaoAbsolutaLinhaProducao.y + this.dimensaoLinhaProducao.largura/2 < Fabrica.dimensaoFabrica.largura;
         }
 
         public LinhaProducaoDTO toDTO()
         {
-            return new LinhaProducaoDTO(id, maquinas);
+            return new LinhaProducaoDTO(id, descricao.Id, posicaoAbsolutaLinhaProducao.x, posicaoAbsolutaLinhaProducao.y, orientacaoLinhaProducao.orientacao, dimensaoLinhaProducao.comprimento, dimensaoLinhaProducao.largura, maquinas);
         }
 
     }

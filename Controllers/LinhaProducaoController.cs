@@ -4,7 +4,7 @@ using MDF.Models.ClassesDeDominio;
 using MDF.Models;
 using MDF.Models.DTO;
 using MDF.Models.Repositorios;
-using MDF.Associations;
+using MDF.Models.ValueObjects;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Cors;
 
@@ -52,7 +52,7 @@ namespace MDF.Controllers
             List<LinhaProducaoDTO> listaLinhaProducao = new List<LinhaProducaoDTO>();
             foreach (LinhaProducao linhaProducao in listaLinhaProducaoDTO)
             {
-                repositorio.setMaquinaLinhaProducao(linhaProducao);
+                repositorio.setMaquinasLinhaProducao(linhaProducao);
                 listaLinhaProducao.Add(linhaProducao.toDTO());
             }
             return listaLinhaProducao;
@@ -62,8 +62,11 @@ namespace MDF.Controllers
         [HttpPost]
         public async Task<ActionResult<LinhaProducaoDTO>> PostLinhaProducao(LinhaProducaoDTO newLinhaProducao)
         {
-            repositorio.addLinhaProducao(new LinhaProducao(newLinhaProducao.id, newLinhaProducao.maquinas));
-            return CreatedAtAction(nameof(GetLinhaProducao), new { id = newLinhaProducao.id }, newLinhaProducao);
+            if (repositorio.addLinhaProducao(new LinhaProducao(newLinhaProducao.id, newLinhaProducao.descricao, newLinhaProducao.posicao_x, newLinhaProducao.posicao_y, newLinhaProducao.orientacao, newLinhaProducao.comprimento, newLinhaProducao.largura)))
+            {
+                return CreatedAtAction(nameof(GetLinhaProducao), new { id = newLinhaProducao.id }, newLinhaProducao);
+            }
+            return BadRequest("Linha de Produção com dimensões inválidas!");
         }
 
         // PUT: api/Todo/5
@@ -77,7 +80,7 @@ namespace MDF.Controllers
                 return NotFound();
             }
 
-            var new_list_maquinas = new List<LinhaProducaoMaquinas>();
+            var new_list_maquinas = new List<Maquina>();
 
             foreach (MaquinaDTO maquinaDTO in update_linha.maquinas)
             {
@@ -85,16 +88,20 @@ namespace MDF.Controllers
 
                 if (maquina == null)
                 {
-                    return NotFound("A operação " + maquinaDTO.Id + " não existe!");
+                    return NotFound("A maquina " + maquinaDTO.Id + " não existe!");
                 }
 
-                new_list_maquinas.Add(new LinhaProducaoMaquinas(linha.Value.id, maquina.Value.Id));
+                new_list_maquinas.Add(maquina.Value);
             }
 
             if (!linha.Value.update_linhaProducao(new_list_maquinas))
             {
-                return BadRequest("Não foi possivel alterar operações deste tipo de máquina!");
+                return BadRequest("Não foi possivel alterar maquinas desta linha de produção!");
             }
+
+            linha.Value.descricao = new Descricao(update_linha.descricao);
+            linha.Value.dimensaoLinhaProducao = new Dimensao(update_linha.comprimento, update_linha.largura);
+            linha.Value.posicaoAbsolutaLinhaProducao = new PosicaoAbsoluta(update_linha.posicao_x, update_linha.posicao_y);
 
             repositorio.updateLinhaProducao(linha.Value);
             return NoContent();

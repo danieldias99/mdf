@@ -14,7 +14,6 @@ namespace MDF.Models.ClassesDeDominio
         public DbSet<TipoMaquinaOperacao> TipoMaquinaOperacao { get; set; }
         public DbSet<Maquina> Maquinas { get; set; }
         public DbSet<LinhaProducao> LinhasProducao { get; set; }
-        public DbSet<LinhaProducaoMaquinas> LinhaProducaoMaquinas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,7 +23,6 @@ namespace MDF.Models.ClassesDeDominio
 
             modelBuilder.Entity<Operacao>().OwnsOne(j => j.descricaoOperacao);
             modelBuilder.Entity<Operacao>().OwnsOne(j => j.duracaoOperacao);
-
 
             //Tipo Maquina
             modelBuilder.Entity<TipoMaquina>().HasKey(a => a.id_tipoMaquina);
@@ -55,23 +53,20 @@ namespace MDF.Models.ClassesDeDominio
             .HasOne<TipoMaquina>(s => s.tipoMaquina)
             .WithMany(g => g.maquinas)
             .HasForeignKey(s => s.id_tipoMaquina);
+            modelBuilder.Entity<Maquina>()
+            .HasOne<LinhaProducao>(s => s.linhaProducao)
+            .WithMany(g => g.maquinas)
+            .HasForeignKey(s => s.id_linhaProducao);
             modelBuilder.Entity<Maquina>().OwnsOne(b => b.posicaoLinhaProducao);
 
             //Linhas de Producao
             modelBuilder.Entity<LinhaProducao>().HasKey(d => d.id);
             modelBuilder.Entity<LinhaProducao>().Property(d => d.id).ValueGeneratedNever();
 
-            //Linha Producao Maquina
-            modelBuilder.Entity<LinhaProducaoMaquinas>()
-                .HasKey(lpm => new { lpm.id_maquina, lpm.id_linhaProducao });
-            modelBuilder.Entity<LinhaProducaoMaquinas>()
-                .HasOne(lpm => lpm.maquina)
-                .WithMany(b => b.linhasProducao)
-                .HasForeignKey(lpm => lpm.id_maquina);
-            modelBuilder.Entity<LinhaProducaoMaquinas>()
-                .HasOne(lpm => lpm.linhaProducao)
-                .WithMany(c => c.maquinas)
-                .HasForeignKey(lpm => lpm.id_linhaProducao);
+            modelBuilder.Entity<LinhaProducao>().OwnsOne(b => b.descricao);
+            modelBuilder.Entity<LinhaProducao>().OwnsOne(b => b.posicaoAbsolutaLinhaProducao);
+            modelBuilder.Entity<LinhaProducao>().OwnsOne(b => b.orientacaoLinhaProducao);
+            modelBuilder.Entity<LinhaProducao>().OwnsOne(b => b.dimensaoLinhaProducao);
         }
 
     }

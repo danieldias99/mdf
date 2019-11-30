@@ -21,7 +21,7 @@ namespace MDF.Models.Repositorios
         public async Task<ActionResult<LinhaProducao>> getLinhaProducaoById(long id)
         {
             var linhaOp = await _context.LinhasProducao.FindAsync(id);
-            setMaquinaLinhaProducao(linhaOp);
+            setMaquinasLinhaProducao(linhaOp);
             return linhaOp;
         }
 
@@ -30,21 +30,29 @@ namespace MDF.Models.Repositorios
             return await _context.LinhasProducao.ToListAsync();
         }
 
-        public void addLinhaProducao(LinhaProducao newLinhaProducao)
+        public bool addLinhaProducao(LinhaProducao newLinhaProducao)
         {
-            _context.LinhasProducao.Add(newLinhaProducao);
-            _context.SaveChanges();
+            if (newLinhaProducao.isInsideFabrica())
+            {
+                _context.LinhasProducao.Add(newLinhaProducao);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public void setMaquinaLinhaProducao(LinhaProducao linhaProducao)
+        public void setMaquinasLinhaProducao(LinhaProducao linhaProducao)
         {
-            var all_linhasProducao = _context.LinhaProducaoMaquinas;
+            var all_maquinas = _context.Maquinas;
 
-            foreach (LinhaProducaoMaquinas linha in all_linhasProducao)
+            foreach (Maquina maquina in all_maquinas)
             {
-                if (linha.id_linhaProducao == linhaProducao.id)
+                if (maquina.id_linhaProducao == linhaProducao.id)
                 {
-                    linha.maquina = _context.Maquinas.Find(linha.id_maquina);
+                    linhaProducao.addMaquina(maquina);
                 }
             }
         }
