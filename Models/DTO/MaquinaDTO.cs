@@ -1,6 +1,4 @@
-using MDF.Associations;
 using MDF.Models.ValueObjects;
-using System.Collections.Generic;
 
 namespace MDF.Models.DTO
 {
@@ -14,12 +12,13 @@ namespace MDF.Models.DTO
         public string modeloMaquina { get; set; }
         public int x { get; set; }
         public int y { get; set; }
+        public int posicaoRelativa { get; set; }
         public long id_tipoMaquina { get; set; }
-        public ICollection<LinhaProducaoMaquinas> linhasProducao { get; set; }
+        public long id_linhaProducao { get; set; }
 
         public MaquinaDTO() { }
 
-        public MaquinaDTO(long Id, NomeMaquina nomeMaquina, MarcaMaquina marcaMaquina, ModeloMaquina modeloMaquina, PosicaoNaLinhaProducao posicaoLinhaProducao, long tipoMaquina, ICollection<LinhaProducaoMaquinas> linhasProducao)
+        public MaquinaDTO(long Id, NomeMaquina nomeMaquina, MarcaMaquina marcaMaquina, ModeloMaquina modeloMaquina, PosicaoAbsoluta posicaoLinhaProducao, PosicaoRelativa posicaoRelativa, long tipoMaquina, long linhaProducao)
         {
             this.Id = Id;
             this.nomeMaquina = nomeMaquina.nomeMaquina;
@@ -27,11 +26,12 @@ namespace MDF.Models.DTO
             this.modeloMaquina = modeloMaquina.modelo;
             this.x = posicaoLinhaProducao.x;
             this.y = posicaoLinhaProducao.y;
+            this.posicaoRelativa = posicaoRelativa.posicao;
             this.id_tipoMaquina = tipoMaquina;
-            this.linhasProducao = linhasProducao;
+            this.id_linhaProducao = linhaProducao;
         }
 
-        public MaquinaDTO(long Id, string nomeMaquina, string marca, string modelo, int x, int y, long tipoMaquina, ICollection<LinhaProducaoMaquinas> linhasProducao)
+        public MaquinaDTO(long Id, string nomeMaquina, string marca, string modelo, int x, int y, int posicaoRelativa, long tipoMaquina, long linhaProducao)
         {
             this.Id = Id;
             this.nomeMaquina = nomeMaquina;
@@ -39,8 +39,9 @@ namespace MDF.Models.DTO
             this.modeloMaquina = modelo;
             this.x = x;
             this.y = y;
+            this.posicaoRelativa = posicaoRelativa;
             this.id_tipoMaquina = tipoMaquina;
-            this.linhasProducao = linhasProducao;
+            this.id_linhaProducao = linhaProducao;
         }
     }
 }

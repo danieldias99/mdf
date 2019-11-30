@@ -1,8 +1,6 @@
 using MDF.Models.Shared;
 using MDF.Models.ValueObjects;
 using MDF.Models.DTO;
-using System.Collections.Generic;
-using MDF.Associations;
 
 namespace MDF.Models
 {
@@ -13,21 +11,23 @@ namespace MDF.Models
         public NomeMaquina nomeMaquina { get; set; }
         public MarcaMaquina marcaMaquina { get; set; }
         public ModeloMaquina modeloMaquina { get; set; }
-        public PosicaoNaLinhaProducao posicaoLinhaProducao { get; set; }
+        public PosicaoAbsoluta posicaoLinhaProducao { get; set; }
+        public PosicaoRelativa posicaoRelativa { get; set; }
         public long id_tipoMaquina { get; set; }
         public TipoMaquina tipoMaquina { get; set; }
-        public ICollection<LinhaProducaoMaquinas> linhasProducao { get; set; }
+        public long id_linhaProducao { get; set; }
+        public LinhaProducao linhaProducao { get; set; }
 
         public Maquina() { }
 
-        public Maquina(NomeMaquina nomeMaquina, PosicaoNaLinhaProducao posicaoLinhaProducao, TipoMaquina tipoMaquina)
+        public Maquina(NomeMaquina nomeMaquina, PosicaoAbsoluta posicaoLinhaProducao, TipoMaquina tipoMaquina)
         {
             this.nomeMaquina = nomeMaquina;
             this.tipoMaquina = tipoMaquina;
             this.posicaoLinhaProducao = posicaoLinhaProducao;
         }
 
-        public Maquina(long id_maquina, string nomeMaquina, string marca, string modelo, int x, int y, long id_tipoMaquina, TipoMaquina tipoMaquina)
+        public Maquina(long id_maquina, string nomeMaquina, string marca, string modelo, int x, int y, int posicaoRelativa, long id_tipoMaquina, TipoMaquina tipoMaquina, long id_linhaProducao)
         {
             this.Id = id_maquina;
             this.nomeMaquina = new NomeMaquina(nomeMaquina);
@@ -35,12 +35,9 @@ namespace MDF.Models
             this.modeloMaquina = new ModeloMaquina(modelo);
             this.id_tipoMaquina = id_tipoMaquina;
             this.tipoMaquina = tipoMaquina;
-            this.posicaoLinhaProducao = new PosicaoNaLinhaProducao(x, y);
-        }
-
-        public void addLinha(LinhaProducaoMaquinas linha)
-        {
-            this.linhasProducao.Add(linha);
+            this.id_linhaProducao = id_linhaProducao;
+            this.posicaoLinhaProducao = new PosicaoAbsoluta(x, y);
+            this.posicaoRelativa = new PosicaoRelativa(posicaoRelativa);
         }
 
         public bool alterarIdTipoMaquina(TipoMaquina tipoMaquina)
@@ -57,7 +54,7 @@ namespace MDF.Models
 
         public MaquinaDTO toDTO()
         {
-            return new MaquinaDTO(Id, nomeMaquina, marcaMaquina, modeloMaquina, posicaoLinhaProducao, id_tipoMaquina, linhasProducao);
+            return new MaquinaDTO(Id, nomeMaquina, marcaMaquina, modeloMaquina, posicaoLinhaProducao, posicaoRelativa, id_tipoMaquina, id_linhaProducao);
         }
     }
 }

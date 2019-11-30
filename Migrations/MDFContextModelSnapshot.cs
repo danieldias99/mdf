@@ -18,19 +18,6 @@ namespace MDF.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("MDF.Associations.LinhaProducaoMaquinas", b =>
-                {
-                    b.Property<long>("id_maquina");
-
-                    b.Property<long>("id_linhaProducao");
-
-                    b.HasKey("id_maquina", "id_linhaProducao");
-
-                    b.HasIndex("id_linhaProducao");
-
-                    b.ToTable("LinhaProducaoMaquinas");
-                });
-
             modelBuilder.Entity("MDF.Associations.TipoMaquinaOperacao", b =>
                 {
                     b.Property<long>("id_operacao");
@@ -57,9 +44,13 @@ namespace MDF.Migrations
                 {
                     b.Property<long>("Id");
 
+                    b.Property<long>("id_linhaProducao");
+
                     b.Property<long>("id_tipoMaquina");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("id_linhaProducao");
 
                     b.HasIndex("id_tipoMaquina");
 
@@ -84,19 +75,6 @@ namespace MDF.Migrations
                     b.ToTable("TiposMaquina");
                 });
 
-            modelBuilder.Entity("MDF.Associations.LinhaProducaoMaquinas", b =>
-                {
-                    b.HasOne("MDF.Models.LinhaProducao", "linhaProducao")
-                        .WithMany("maquinas")
-                        .HasForeignKey("id_linhaProducao")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("MDF.Models.Maquina", "maquina")
-                        .WithMany("linhasProducao")
-                        .HasForeignKey("id_maquina")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("MDF.Associations.TipoMaquinaOperacao", b =>
                 {
                     b.HasOne("MDF.Models.Operacao", "operacao")
@@ -110,8 +88,84 @@ namespace MDF.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("MDF.Models.LinhaProducao", b =>
+                {
+                    b.OwnsOne("MDF.Models.ValueObjects.Dimensao", "dimensaoLinhaProducao", b1 =>
+                        {
+                            b1.Property<long>("LinhaProducaoid");
+
+                            b1.Property<int>("comprimento");
+
+                            b1.Property<int>("largura");
+
+                            b1.HasKey("LinhaProducaoid");
+
+                            b1.ToTable("LinhasProducao");
+
+                            b1.HasOne("MDF.Models.LinhaProducao")
+                                .WithOne("dimensaoLinhaProducao")
+                                .HasForeignKey("MDF.Models.ValueObjects.Dimensao", "LinhaProducaoid")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
+                    b.OwnsOne("MDF.Models.ValueObjects.Orientacao", "orientacaoLinhaProducao", b1 =>
+                        {
+                            b1.Property<long>("LinhaProducaoid");
+
+                            b1.Property<string>("orientacao");
+
+                            b1.HasKey("LinhaProducaoid");
+
+                            b1.ToTable("LinhasProducao");
+
+                            b1.HasOne("MDF.Models.LinhaProducao")
+                                .WithOne("orientacaoLinhaProducao")
+                                .HasForeignKey("MDF.Models.ValueObjects.Orientacao", "LinhaProducaoid")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
+                    b.OwnsOne("MDF.Models.ValueObjects.Descricao", "descricao", b1 =>
+                        {
+                            b1.Property<long>("LinhaProducaoid");
+
+                            b1.Property<string>("Id");
+
+                            b1.HasKey("LinhaProducaoid");
+
+                            b1.ToTable("LinhasProducao");
+
+                            b1.HasOne("MDF.Models.LinhaProducao")
+                                .WithOne("descricao")
+                                .HasForeignKey("MDF.Models.ValueObjects.Descricao", "LinhaProducaoid")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
+                    b.OwnsOne("MDF.Models.ValueObjects.PosicaoAbsoluta", "posicaoAbsolutaLinhaProducao", b1 =>
+                        {
+                            b1.Property<long>("LinhaProducaoid");
+
+                            b1.Property<int>("x");
+
+                            b1.Property<int>("y");
+
+                            b1.HasKey("LinhaProducaoid");
+
+                            b1.ToTable("LinhasProducao");
+
+                            b1.HasOne("MDF.Models.LinhaProducao")
+                                .WithOne("posicaoAbsolutaLinhaProducao")
+                                .HasForeignKey("MDF.Models.ValueObjects.PosicaoAbsoluta", "LinhaProducaoid")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+                });
+
             modelBuilder.Entity("MDF.Models.Maquina", b =>
                 {
+                    b.HasOne("MDF.Models.LinhaProducao", "linhaProducao")
+                        .WithMany("maquinas")
+                        .HasForeignKey("id_linhaProducao")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("MDF.Models.TipoMaquina", "tipoMaquina")
                         .WithMany("maquinas")
                         .HasForeignKey("id_tipoMaquina")
@@ -165,7 +219,23 @@ namespace MDF.Migrations
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
 
-                    b.OwnsOne("MDF.Models.ValueObjects.PosicaoNaLinhaProducao", "posicaoLinhaProducao", b1 =>
+                    b.OwnsOne("MDF.Models.ValueObjects.PosicaoRelativa", "posicaoRelativa", b1 =>
+                        {
+                            b1.Property<long>("MaquinaId");
+
+                            b1.Property<int>("posicao");
+
+                            b1.HasKey("MaquinaId");
+
+                            b1.ToTable("Maquinas");
+
+                            b1.HasOne("MDF.Models.Maquina")
+                                .WithOne("posicaoRelativa")
+                                .HasForeignKey("MDF.Models.ValueObjects.PosicaoRelativa", "MaquinaId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
+
+                    b.OwnsOne("MDF.Models.ValueObjects.PosicaoAbsoluta", "posicaoLinhaProducao", b1 =>
                         {
                             b1.Property<long>("MaquinaId");
 
@@ -179,7 +249,7 @@ namespace MDF.Migrations
 
                             b1.HasOne("MDF.Models.Maquina")
                                 .WithOne("posicaoLinhaProducao")
-                                .HasForeignKey("MDF.Models.ValueObjects.PosicaoNaLinhaProducao", "MaquinaId")
+                                .HasForeignKey("MDF.Models.ValueObjects.PosicaoAbsoluta", "MaquinaId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
                 });

@@ -58,6 +58,7 @@ namespace MDF.Models.ClassesDeDominio
             .WithMany(g => g.maquinas)
             .HasForeignKey(s => s.id_linhaProducao);
             modelBuilder.Entity<Maquina>().OwnsOne(b => b.posicaoLinhaProducao);
+            modelBuilder.Entity<Maquina>().OwnsOne(b => b.posicaoRelativa);
 
             //Linhas de Producao
             modelBuilder.Entity<LinhaProducao>().HasKey(d => d.id);
