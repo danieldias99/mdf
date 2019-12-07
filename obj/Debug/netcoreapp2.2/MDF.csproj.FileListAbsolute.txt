@@ -40,3 +40,4 @@ c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\obj\
 c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\obj\Debug\netcoreapp2.2\MDF.RazorTargetAssemblyInfo.cache
 c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\obj\Debug\netcoreapp2.2\MDF.dll
 c:\Users\Daniel\Desktop\Universidade\3oAno\1oSemestre\ARQSI\Projeto\Projeto\obj\Debug\netcoreapp2.2\MDF.pdb
+c:\Users\Mata\Desktop\Faculdade\3Ano\1º Semestre\ARQSI\Repositorio_ARQSI_MDF\bin\Debug\netcoreapp2.2\MDF.dll

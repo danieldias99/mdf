@@ -1,5 +1,5 @@
 {
     "appService.preDeployTask": "publish-release",
     "appService.deploySubpath": "",
-    "appService.defaultWebAppToDeploy": "/subscriptions/beb93af0-a191-4a4b-b843-1771d3220fc3/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/MDF-Azure"
+    "appService.defaultWebAppToDeploy": "/subscriptions/87b9bb6c-3ee1-4df2-938c-5fac53b7a645/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/mdf-azure"
 }
