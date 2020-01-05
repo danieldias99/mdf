@@ -17,7 +17,7 @@ namespace MDF.Models
 
         private Operacao() { }
 
-        public Operacao(long id, string descricao, string id_ferramenta, string horaF, string minF, string segF, string hora, string min, string seg)
+        public Operacao(long id, string descricao, string hora, string min, string seg,  string id_ferramenta, string horaF, string minF, string segF)
         {
             this.id = id;
             this.descricaoOperacao = new Descricao(descricao);

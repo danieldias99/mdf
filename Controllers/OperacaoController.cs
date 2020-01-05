@@ -72,6 +72,7 @@ namespace MDF.Controllers
 
             operacaoDTO.Value.descricaoOperacao = new Models.ValueObjects.Descricao(update_operacao.descricaoOperacao);
             operacaoDTO.Value.duracaoOperacao = new Models.ValueObjects.DuracaoOperacao(update_operacao.duracaoOperacao.Split(":")[0], update_operacao.duracaoOperacao.Split(":")[1], update_operacao.duracaoOperacao.Split(":")[2]);
+            operacaoDTO.Value.ferramentaOperacao = new Models.ValueObjects.Ferramenta(update_operacao.id_ferramenta, update_operacao.duracaoFerramenta.Split(":")[0], update_operacao.duracaoFerramenta.Split(":")[1], update_operacao.duracaoFerramenta.Split(":")[2]);
 
             repositorio.updateOperacao(operacaoDTO.Value);
             return NoContent();
