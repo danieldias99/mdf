@@ -62,7 +62,7 @@ namespace MDF.Controllers
         public async Task<ActionResult<Maquina>> postMaquina(MaquinaDTO newMaquina)
         {
             var tipo_maquina = await repositorioTipoMaquina.getTipoMaquinaById(newMaquina.id_tipoMaquina);
-            repositorioMaquina.addMaquina(new Maquina(newMaquina.Id, newMaquina.nomeMaquina, newMaquina.marcaMaquina, newMaquina.modeloMaquina, newMaquina.x, newMaquina.y, newMaquina.posicaoRelativa, newMaquina.id_tipoMaquina, tipo_maquina.Value, newMaquina.id_linhaProducao));
+            repositorioMaquina.addMaquina(new Maquina(newMaquina.Id, newMaquina.nomeMaquina, newMaquina.marcaMaquina, newMaquina.modeloMaquina, newMaquina.x, newMaquina.y, newMaquina.posicaoRelativa, newMaquina.id_tipoMaquina, tipo_maquina.Value, newMaquina.id_linhaProducao, true));
             return CreatedAtAction(nameof(getMaquina), new Maquina { nomeMaquina = new NomeMaquina(newMaquina.nomeMaquina) }, newMaquina);
         }
 
@@ -98,6 +98,43 @@ namespace MDF.Controllers
             //return Ok("Maquina Atualizada com sucesso!");
             return NoContent();
         }
+
+        // PUT: api/Todo/5
+        [HttpPut()]
+        public async Task<IActionResult> ativarMaquina(MaquinaDTO update_maquina)
+        {
+            var maquina = (await repositorioMaquina.getMaquinaById(update_maquina.Id)).Value;
+            if (maquina == null)
+            {
+                return NotFound("A máquina escolhida não existe!");
+            }
+
+            maquina.estado = true;
+
+            await repositorioMaquina.updateMaquina(maquina);
+
+            //return Ok("Maquina Atualizada com sucesso!");
+            return NoContent();
+        }
+
+        // PUT: api/Todo/5
+        [HttpPut()]
+        public async Task<IActionResult> desativarMaquina(MaquinaDTO update_maquina)
+        {
+            var maquina = (await repositorioMaquina.getMaquinaById(update_maquina.Id)).Value;
+            if (maquina == null)
+            {
+                return NotFound("A máquina escolhida não existe!");
+            }
+
+            maquina.estado = false;
+
+            await repositorioMaquina.updateMaquina(maquina);
+
+            //return Ok("Maquina Atualizada com sucesso!");
+            return NoContent();
+        }
+        
 
         // DELETE: api/Maquina/5
         [HttpDelete("{id}")]
