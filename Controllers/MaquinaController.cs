@@ -66,8 +66,8 @@ namespace MDF.Controllers
             return CreatedAtAction(nameof(getMaquina), new Maquina { nomeMaquina = new NomeMaquina(newMaquina.nomeMaquina) }, newMaquina);
         }
 
-        // PUT: api/Todo/5
-        [HttpPut()]
+        // PUT: api/Todo
+        [HttpPut]
         public async Task<IActionResult> PutMaquina(MaquinaDTO update_maquina)
         {
             var maquina = (await repositorioMaquina.getMaquinaById(update_maquina.Id)).Value;
@@ -99,8 +99,8 @@ namespace MDF.Controllers
             return NoContent();
         }
 
-        // PUT: api/Todo/5
-        [HttpPut()]
+        // PUT: api/Todo
+        [HttpPut("ativar")]
         public async Task<IActionResult> ativarMaquina(MaquinaDTO update_maquina)
         {
             var maquina = (await repositorioMaquina.getMaquinaById(update_maquina.Id)).Value;
@@ -118,7 +118,7 @@ namespace MDF.Controllers
         }
 
         // PUT: api/Todo/5
-        [HttpPut()]
+        [HttpPut("desativar")]
         public async Task<IActionResult> desativarMaquina(MaquinaDTO update_maquina)
         {
             var maquina = (await repositorioMaquina.getMaquinaById(update_maquina.Id)).Value;
