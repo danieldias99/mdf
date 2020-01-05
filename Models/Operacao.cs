@@ -13,13 +13,16 @@ namespace MDF.Models
         public DuracaoOperacao duracaoOperacao { get; set; }
         public ICollection<TipoMaquinaOperacao> tiposMaquinas { get; set; }
 
+        public Ferramenta ferramentaOperacao { get; set; }
+
         private Operacao() { }
 
-        public Operacao(long id, string descricao, string hora, string min, string seg)
+        public Operacao(long id, string descricao, string id_ferramenta, string horaF, string minF, string segF, string hora, string min, string seg)
         {
             this.id = id;
             this.descricaoOperacao = new Descricao(descricao);
             this.duracaoOperacao = new DuracaoOperacao(hora, min, seg);
+            this.ferramentaOperacao = new Ferramenta(id_ferramenta, horaF, minF,segF);
         }
 
         public Operacao(long id)
@@ -29,7 +32,7 @@ namespace MDF.Models
 
         public OperacaoDTO toDTO()
         {
-            return new OperacaoDTO(id, descricaoOperacao.Id, duracaoOperacao.toString(), tiposMaquinas);
+            return new OperacaoDTO(id, descricaoOperacao.Id, duracaoOperacao.toString(), ferramentaOperacao.Id, ferramentaOperacao.tempoSetUptoString(), tiposMaquinas);
         }
     }
 }

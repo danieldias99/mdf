@@ -10,6 +10,7 @@ namespace MDF.Models.ClassesDeDominio
         public MDFContext(DbContextOptions<MDFContext> options) : base(options) { }
 
         public DbSet<Operacao> Operacoes { get; set; }
+
         public DbSet<TipoMaquina> TiposMaquina { get; set; }
         public DbSet<TipoMaquinaOperacao> TipoMaquinaOperacao { get; set; }
         public DbSet<Maquina> Maquinas { get; set; }
@@ -23,6 +24,9 @@ namespace MDF.Models.ClassesDeDominio
 
             modelBuilder.Entity<Operacao>().OwnsOne(j => j.descricaoOperacao);
             modelBuilder.Entity<Operacao>().OwnsOne(j => j.duracaoOperacao);
+
+            modelBuilder.Entity<Operacao>().OwnsOne(j => j.ferramentaOperacao);
+
 
             //Tipo Maquina
             modelBuilder.Entity<TipoMaquina>().HasKey(a => a.id_tipoMaquina);
@@ -49,6 +53,8 @@ namespace MDF.Models.ClassesDeDominio
             modelBuilder.Entity<Maquina>().OwnsOne(b => b.nomeMaquina);
             modelBuilder.Entity<Maquina>().OwnsOne(b => b.modeloMaquina);
             modelBuilder.Entity<Maquina>().OwnsOne(b => b.marcaMaquina);
+            modelBuilder.Entity<Maquina>().Property(b => b.estado);
+
             modelBuilder.Entity<Maquina>()
             .HasOne<TipoMaquina>(s => s.tipoMaquina)
             .WithMany(g => g.maquinas)

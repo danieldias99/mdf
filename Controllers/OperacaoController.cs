@@ -55,7 +55,7 @@ namespace MDF.Controllers
         [HttpPost()]
         public async Task<ActionResult<Operacao>> PostOperacao(OperacaoDTO update_operacao)
         {
-            repositorio.addOperacao(new Operacao(update_operacao.id, update_operacao.descricaoOperacao, update_operacao.duracaoOperacao.Split(":")[0], update_operacao.duracaoOperacao.Split(":")[1], update_operacao.duracaoOperacao.Split(":")[2]));
+            repositorio.addOperacao(new Operacao(update_operacao.id, update_operacao.descricaoOperacao, update_operacao.duracaoOperacao.Split(":")[0], update_operacao.duracaoOperacao.Split(":")[1], update_operacao.duracaoOperacao.Split(":")[2], update_operacao.id_ferramenta, update_operacao.duracaoFerramenta.Split(":")[0], update_operacao.duracaoFerramenta.Split(":")[1], update_operacao.duracaoFerramenta.Split(":")[2]));
             return CreatedAtAction(nameof(GetOperacao), new { id = update_operacao.id }, update_operacao);
         }
 
@@ -72,7 +72,7 @@ namespace MDF.Controllers
 
             operacaoDTO.Value.descricaoOperacao = new Models.ValueObjects.Descricao(update_operacao.descricaoOperacao);
             operacaoDTO.Value.duracaoOperacao = new Models.ValueObjects.DuracaoOperacao(update_operacao.duracaoOperacao.Split(":")[0], update_operacao.duracaoOperacao.Split(":")[1], update_operacao.duracaoOperacao.Split(":")[2]);
-            
+
             repositorio.updateOperacao(operacaoDTO.Value);
             return NoContent();
         }

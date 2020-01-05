@@ -16,9 +16,11 @@ namespace MDF.Models.DTO
         public long id_tipoMaquina { get; set; }
         public long id_linhaProducao { get; set; }
 
+        public bool estado { get; set; }
+
         public MaquinaDTO() { }
 
-        public MaquinaDTO(long Id, NomeMaquina nomeMaquina, MarcaMaquina marcaMaquina, ModeloMaquina modeloMaquina, PosicaoAbsoluta posicaoLinhaProducao, PosicaoRelativa posicaoRelativa, long tipoMaquina, long linhaProducao)
+        public MaquinaDTO(long Id, NomeMaquina nomeMaquina, MarcaMaquina marcaMaquina, ModeloMaquina modeloMaquina, PosicaoAbsoluta posicaoLinhaProducao, PosicaoRelativa posicaoRelativa, long tipoMaquina, long linhaProducao, bool estado)
         {
             this.Id = Id;
             this.nomeMaquina = nomeMaquina.nomeMaquina;
@@ -29,6 +31,7 @@ namespace MDF.Models.DTO
             this.posicaoRelativa = posicaoRelativa.posicao;
             this.id_tipoMaquina = tipoMaquina;
             this.id_linhaProducao = linhaProducao;
+            this.estado = estado;
         }
 
         public MaquinaDTO(long Id, string nomeMaquina, string marca, string modelo, int x, int y, int posicaoRelativa, long tipoMaquina, long linhaProducao)
@@ -42,6 +45,7 @@ namespace MDF.Models.DTO
             this.posicaoRelativa = posicaoRelativa;
             this.id_tipoMaquina = tipoMaquina;
             this.id_linhaProducao = linhaProducao;
+            this.estado = true;
         }
     }
 }

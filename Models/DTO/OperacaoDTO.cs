@@ -8,8 +8,13 @@ namespace MDF.Models.DTO
     {
         public long id;
         public string descricaoOperacao { get; set; }
+        
         public string duracaoOperacao { get; set; }
         public List<TipoMaquina> tiposMaquinas { get; set; }
+
+        public string id_ferramenta { get; set; }
+
+        public string duracaoFerramenta { get; set; }
 
         public OperacaoDTO(){}
         
@@ -18,10 +23,12 @@ namespace MDF.Models.DTO
             this.id = id;
         }
 
-        public OperacaoDTO(long id, string descricaoOperacao, string duracaoOperacao, ICollection<TipoMaquinaOperacao> listTipoMaquinaOperacoes)
+        public OperacaoDTO(long id, string descricaoOperacao, string duracaoOperacao, string  id_ferramenta, string duracaoFerramenta, ICollection<TipoMaquinaOperacao> listTipoMaquinaOperacoes)
         {
             this.id = id;
             this.descricaoOperacao = descricaoOperacao;
+            this.id_ferramenta = id_ferramenta;
+            this.duracaoFerramenta = duracaoFerramenta;
             this.duracaoOperacao = duracaoOperacao;
         }
 
